@@ -105,7 +105,7 @@ Phase 1: API Client, Authentication Store & Screen Registry ✅
   ├── Declarative Screen Registry (`screens.config.ts`)
   └── Route Guards (`RoleGuard`, `AuthGuard`, `GuestGuard`)
 
-Phase 2: Authentication & Session Screens
+Phase 2: Authentication & Session Screens ✅
   ├── Modern Login Screen (Email/Password, Remember Me, Show/Hide)
   ├── Session hydration via `GET /api/v1/auth/me`
   ├── Logout & Logout-All confirmation dialogs

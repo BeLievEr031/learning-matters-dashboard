@@ -131,8 +131,8 @@ export function BoardFormModal({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-6 py-2">
           {/* Board Name */}
           <div className="space-y-1.5">
-            <Label htmlFor="name" required>
-              Board Name
+            <Label htmlFor="name">
+              Board Name <span className="text-destructive">*</span>
             </Label>
             <Input
               id="name"
@@ -148,8 +148,8 @@ export function BoardFormModal({
           {/* Board Code & Status */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label htmlFor="code" required>
-                Board Code
+              <Label htmlFor="code">
+                Board Code <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="code"
@@ -172,8 +172,8 @@ export function BoardFormModal({
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="status" required>
-                Operational Status
+              <Label htmlFor="status">
+                Operational Status <span className="text-destructive">*</span>
               </Label>
               <select
                 id="status"

@@ -129,7 +129,7 @@ Phase 5: Schools Management (`super_admin` only) ✅
   ├── Edit School & Logo upload / URL support
   └── School status transitions (`active`, `inactive`, `suspended`) and soft delete
 
-Phase 6: Boards & Academic Curriculum Management
+Phase 6: Boards & Academic Curriculum Management ✅
   ├── School-scoped Boards directory (CBSE, ICSE, etc.)
   ├── Add/Edit Board modal with code uniqueness checks
   └── Board status management and grade counts

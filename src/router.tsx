@@ -3,6 +3,7 @@ import { SCREENS_REGISTRY } from './config/screens.config.ts';
 import { AuthGuard } from './components/guards/AuthGuard.tsx';
 import { GuestGuard } from './components/guards/GuestGuard.tsx';
 import { RoleGuard } from './components/guards/RoleGuard.tsx';
+import { AppShell } from './components/layout/AppShell.tsx';
 import { LoginPage } from './pages/auth/LoginPage.tsx';
 import { NotFoundPage } from './pages/errors/NotFoundPage.tsx';
 
@@ -17,25 +18,30 @@ export const router = createBrowserRouter([
     ),
   },
 
-  // Protected App Routes
+  // Protected App Routes wrapped in AuthGuard and AppShell
   {
     element: <AuthGuard />,
     children: [
       {
-        path: '/',
-        element: <Navigate to="/dashboard" replace />,
+        element: <AppShell />,
+        children: [
+          {
+            path: '/',
+            element: <Navigate to="/dashboard" replace />,
+          },
+          ...SCREENS_REGISTRY.map((screen) => {
+            const Component = screen.component;
+            return {
+              path: screen.path,
+              element: (
+                <RoleGuard allowedRoles={screen.allowedRoles}>
+                  <Component />
+                </RoleGuard>
+              ),
+            };
+          }),
+        ],
       },
-      ...SCREENS_REGISTRY.map((screen) => {
-        const Component = screen.component;
-        return {
-          path: screen.path,
-          element: (
-            <RoleGuard allowedRoles={screen.allowedRoles}>
-              <Component />
-            </RoleGuard>
-          ),
-        };
-      }),
     ],
   },
 

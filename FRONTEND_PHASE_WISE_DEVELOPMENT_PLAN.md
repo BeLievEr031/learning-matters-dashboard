@@ -134,7 +134,7 @@ Phase 6: Boards & Academic Curriculum Management ✅
   ├── Add/Edit Board modal with code uniqueness checks
   └── Board status management and grade counts
 
-Phase 7: Grades & Sections Management
+Phase 7: Grades & Sections Management ✅
   ├── Grades & Sections list with board filtering and section grouping
   ├── Create Grade modal (gradeNumber, section, capacity)
   ├── Class Teacher assignment / unassignment modal (`PUT /grades/:id/class-teacher`)

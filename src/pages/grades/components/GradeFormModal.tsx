@@ -101,14 +101,21 @@ export function GradeFormModal({
 
   const onSubmit = async (values: GradeFormValues) => {
     setServerError(null);
+    const cleanedCapacity =
+      values.capacity !== undefined && values.capacity !== null && !isNaN(Number(values.capacity))
+        ? Number(values.capacity)
+        : null;
+    const cleanedSection =
+      values.section && values.section.trim() !== '' ? values.section.trim() : null;
+
     try {
       if (isEditing && gradeToEdit) {
         await gradesApi.update(gradeToEdit.id, {
           name: values.name,
           code: values.code,
-          gradeNumber: values.gradeNumber,
-          section: values.section ? values.section.trim() : null,
-          capacity: values.capacity ?? null,
+          gradeNumber: Number(values.gradeNumber),
+          section: cleanedSection,
+          capacity: cleanedCapacity,
           status: values.status,
         });
         toast.success('Grade / Section updated successfully');
@@ -116,9 +123,9 @@ export function GradeFormModal({
         await gradesApi.create(values.boardId, {
           name: values.name,
           code: values.code,
-          gradeNumber: values.gradeNumber,
-          section: values.section ? values.section.trim() : null,
-          capacity: values.capacity ?? null,
+          gradeNumber: Number(values.gradeNumber),
+          section: cleanedSection,
+          capacity: cleanedCapacity,
           status: values.status,
         });
         toast.success('Grade / Section created successfully');
@@ -201,7 +208,7 @@ export function GradeFormModal({
                 min={0}
                 max={20}
                 placeholder="e.g. 10 (0 for KG)"
-                {...register('gradeNumber')}
+                {...register('gradeNumber', { valueAsNumber: true })}
                 disabled={isSubmitting}
               />
               {errors.gradeNumber ? (
@@ -283,7 +290,7 @@ export function GradeFormModal({
                 type="number"
                 min={1}
                 placeholder="e.g. 40"
-                {...register('capacity')}
+                {...register('capacity', { valueAsNumber: true })}
                 disabled={isSubmitting}
               />
               {errors.capacity && (

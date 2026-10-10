@@ -14,20 +14,21 @@ export const gradeFormSchema = z.object({
     .min(1, 'Grade code is required')
     .max(50, 'Grade code must not exceed 50 characters')
     .regex(/^[A-Za-z0-9_-]+$/, 'Code can only contain alphanumeric characters, hyphens, and underscores'),
-  gradeNumber: z.coerce
+  gradeNumber: z
     .number()
     .int('Grade number must be an integer')
     .min(0, 'Grade number must be 0 (KG/Prep) or greater'),
   section: z
     .string()
     .max(50, 'Section must not exceed 50 characters')
+    .nullable()
     .optional(),
-  capacity: z.coerce
+  capacity: z
     .number()
     .int('Capacity must be an integer')
     .min(1, 'Capacity must be at least 1')
-    .optional()
-    .nullable(),
+    .nullable()
+    .optional(),
   status: z.enum(GRADE_STATUSES),
 });
 

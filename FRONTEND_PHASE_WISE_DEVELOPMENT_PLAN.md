@@ -123,7 +123,7 @@ Phase 4: Dashboard Overview (Role-Tailored) ✅
   ├── School Admin / Principal view (Student count, teacher count, grades, quick actions)
   └── Teacher / Class Teacher view (My schedule, assigned grade, students count)
 
-Phase 5: Schools Management (`super_admin` only)
+Phase 5: Schools Management (`super_admin` only) ✅
   ├── Schools list table with cursor-based pagination, search, status filter
   ├── Create School modal/drawer with validation
   ├── Edit School & Logo upload / URL support

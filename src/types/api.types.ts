@@ -13,13 +13,22 @@ export interface ApiErrorResponse {
 }
 
 export interface PaginationMeta {
-  total: number;
+  total?: number;
+  page?: number;
   limit: number;
+  totalPages?: number;
+  nextCursor?: string | null;
+  hasMore?: boolean;
+}
+
+export interface PageInfo {
   nextCursor: string | null;
   hasMore: boolean;
 }
 
 export interface PaginatedResponse<T> {
+  success?: boolean;
   data: T[];
-  meta: PaginationMeta;
+  meta?: PaginationMeta;
+  pageInfo?: PageInfo;
 }

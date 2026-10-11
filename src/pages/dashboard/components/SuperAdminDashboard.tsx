@@ -28,6 +28,16 @@ export function SuperAdminDashboard({ data }: SuperAdminDashboardProps) {
   const uptimeHours = Math.floor(uptimeSeconds / 3600);
   const uptimeMinutes = Math.floor((uptimeSeconds % 3600) / 60);
 
+  const isDbOnline =
+    readiness?.services?.database?.status === 'up' ||
+    readiness?.db === 'up' ||
+    readiness?.checks?.database === 'ok';
+
+  const isRedisOnline =
+    readiness?.services?.redis?.status === 'up' ||
+    readiness?.redis === 'up' ||
+    readiness?.checks?.redis === 'ok';
+
   return (
     <div className="space-y-6">
       {/* KPI Stats Grid */}
@@ -128,12 +138,12 @@ export function SuperAdminDashboard({ data }: SuperAdminDashboardProps) {
               <span
                 className={cn(
                   'px-2 py-0.5 rounded text-[10px] font-bold uppercase',
-                  readiness?.services.database.status === 'up'
+                  isDbOnline
                     ? 'bg-emerald-500/10 text-emerald-500'
                     : 'bg-destructive/10 text-destructive',
                 )}
               >
-                {readiness?.services.database.status === 'up' ? 'Online' : 'Degraded'}
+                {isDbOnline ? 'Online' : 'Degraded'}
               </span>
             </div>
 
@@ -148,12 +158,12 @@ export function SuperAdminDashboard({ data }: SuperAdminDashboardProps) {
               <span
                 className={cn(
                   'px-2 py-0.5 rounded text-[10px] font-bold uppercase',
-                  readiness?.services.redis.status === 'up'
+                  isRedisOnline
                     ? 'bg-emerald-500/10 text-emerald-500'
                     : 'bg-destructive/10 text-destructive',
                 )}
               >
-                {readiness?.services.redis.status === 'up' ? 'Online' : 'Degraded'}
+                {isRedisOnline ? 'Online' : 'Degraded'}
               </span>
             </div>
 

@@ -152,18 +152,18 @@ Phase 9: Teachers & Staff Directory ✅
   ├── Teacher profile view drawer
   └── Status transitions (`active`, `inactive`, `on_leave`, `terminated`)
 
-Phase 10: Students & Admissions Management
+Phase 10: Teacher Subject & Grade Assignments Matrix (Scheduling) ✅
+  ├── Interactive Teacher ↔ Grade ↔ Subject assignment grid & table
+  ├── Create Assignment modal with teacher, grade, and subject cascading picker
+  ├── Assignment effective date and status management (`active`, `inactive`)
+  └── Teacher workload metrics visualization & allocation revocation dialog
+
+Phase 11: Students & Admissions Management
   ├── Students directory with grade, board, and admission number filters
   ├── Admission Form (personal info, guardian contacts, DOB, gender)
   ├── Student profile details drawer
   ├── Student Grade Transfer modal (`PUT /students/:id/transfer` with audit reason)
   └── Student status lifecycle (`active`, `inactive`, `transferred`, `graduated`, `suspended`)
-
-Phase 11: Teacher Assignments Matrix (Scheduling)
-  ├── Interactive Teacher ↔ Grade ↔ Subject assignment grid & table
-  ├── Create Assignment modal with teacher and subject conflict validation
-  ├── Assignment effective date and status management
-  └── Teacher workload visualization
 
 Phase 12: Principal Appointment & Management
   ├── Principal profile card per school

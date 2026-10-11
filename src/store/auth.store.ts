@@ -23,14 +23,22 @@ interface AuthState {
 
 function loadInitialState() {
   try {
-    const accessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
-    const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+    const rawAccessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+    const rawRefreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+    const accessToken =
+      rawAccessToken && rawAccessToken !== 'undefined' && rawAccessToken !== 'null'
+        ? rawAccessToken
+        : null;
+    const refreshToken =
+      rawRefreshToken && rawRefreshToken !== 'undefined' && rawRefreshToken !== 'null'
+        ? rawRefreshToken
+        : null;
     const userRaw = localStorage.getItem(STORAGE_KEYS.USER);
     const activeSchoolId = localStorage.getItem(STORAGE_KEYS.ACTIVE_SCHOOL_ID);
     const viewAsRoleRaw = localStorage.getItem(STORAGE_KEYS.VIEW_AS_ROLE) as UserRole | null;
 
     const user: AuthUser | null = userRaw ? JSON.parse(userRaw) : null;
-    const isAuthenticated = Boolean(accessToken && user);
+    const isAuthenticated = Boolean(user);
 
     return {
       accessToken,
@@ -60,16 +68,20 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   ...initialState,
 
   setAuth: (tokens: AuthTokens, user: AuthUser) => {
-    localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken);
-    localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken);
+    if (tokens.accessToken) {
+      localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken);
+    }
+    if (tokens.refreshToken) {
+      localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken);
+    }
     localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
     if (user.schoolId) {
       localStorage.setItem(STORAGE_KEYS.ACTIVE_SCHOOL_ID, user.schoolId);
     }
 
     set({
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
+      accessToken: tokens.accessToken || null,
+      refreshToken: tokens.refreshToken || null,
       user,
       isAuthenticated: true,
       activeSchoolId: user.schoolId ?? get().activeSchoolId,

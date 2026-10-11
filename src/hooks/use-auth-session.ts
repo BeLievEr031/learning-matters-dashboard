@@ -4,10 +4,10 @@ import { authApi } from '../api/auth.api.ts';
 
 export function useAuthSession() {
   const { user, accessToken, isAuthenticated, setUser, logout } = useAuthStore();
-  const [isHydrating, setIsHydrating] = useState(() => Boolean(useAuthStore.getState().accessToken));
+  const [isHydrating, setIsHydrating] = useState(() => Boolean(useAuthStore.getState().user || useAuthStore.getState().accessToken));
 
   const refreshSession = useCallback(async () => {
-    if (!accessToken) {
+    if (!isAuthenticated && !accessToken) {
       setIsHydrating(false);
       return;
     }
@@ -22,10 +22,10 @@ export function useAuthSession() {
     } finally {
       setIsHydrating(false);
     }
-  }, [accessToken, setUser]);
+  }, [isAuthenticated, accessToken, setUser]);
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!isAuthenticated && !accessToken) {
       return;
     }
 

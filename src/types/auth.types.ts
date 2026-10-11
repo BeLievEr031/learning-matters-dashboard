@@ -31,11 +31,13 @@ export interface AuthTokens {
 
 export interface LoginResponse {
   user: AuthUser;
-  accessToken: string;
-  refreshToken: string;
+  tokens?: AuthTokens;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface RefreshResponse {
-  accessToken: string;
-  refreshToken: string;
+  tokens?: AuthTokens;
+  accessToken?: string;
+  refreshToken?: string;
 }

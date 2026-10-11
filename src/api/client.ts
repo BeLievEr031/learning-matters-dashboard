@@ -10,6 +10,7 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   timeout: 30000,
+  withCredentials: true,
 });
 
 // Request queue for handling simultaneous requests during token refresh
@@ -66,11 +67,6 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
       const { refreshToken, logout, setTokens } = useAuthStore.getState();
 
-      if (!refreshToken) {
-        logout();
-        return Promise.reject(error);
-      }
-
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -90,17 +86,26 @@ apiClient.interceptors.response.use(
       try {
         const response = await axios.post<RefreshResponse>(
           `${ENV.API_BASE_URL}/auth/refresh`,
-          { refreshToken },
-          { headers: { 'Content-Type': 'application/json' } },
+          refreshToken ? { refreshToken } : {},
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          },
         );
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
-        setTokens({ accessToken, refreshToken: newRefreshToken });
+        const newAccessToken =
+          response.data.tokens?.accessToken ?? response.data.accessToken ?? '';
+        const newRefreshToken =
+          response.data.tokens?.refreshToken ?? response.data.refreshToken ?? '';
 
-        processQueue(null, accessToken);
+        if (newAccessToken) {
+          setTokens({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+        }
 
-        if (originalRequest.headers) {
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        processQueue(null, newAccessToken || null);
+
+        if (originalRequest.headers && newAccessToken) {
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         }
 
         return apiClient(originalRequest);

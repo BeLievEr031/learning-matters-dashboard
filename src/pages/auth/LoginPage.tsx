@@ -67,10 +67,12 @@ export function LoginPage() {
         localStorage.removeItem(REMEMBERED_EMAIL_KEY);
       }
 
-      setAuth(
-        { accessToken: response.accessToken, refreshToken: response.refreshToken },
-        response.user,
-      );
+      const tokens = response.tokens ?? {
+        accessToken: response.accessToken ?? '',
+        refreshToken: response.refreshToken ?? '',
+      };
+
+      setAuth(tokens, response.user);
 
       toast.success(`Welcome back, ${response.user.firstName || response.user.email}!`);
 

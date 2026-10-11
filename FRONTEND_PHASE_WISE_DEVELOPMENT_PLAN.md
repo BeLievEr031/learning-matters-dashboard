@@ -146,7 +146,7 @@ Phase 8: Subjects & Grade-Subject Curriculum ✅
   ├── Grade-Subject mapping manager (`/grades/:gradeId/subjects`)
   └── Association status toggle (`active`, `inactive`)
 
-Phase 9: Teachers & Staff Directory
+Phase 9: Teachers & Staff Directory ✅
   ├── Teachers list with employee ID, qualifications, joining date, and status
   ├── Add Teacher form with optional user account linkage
   ├── Teacher profile view drawer

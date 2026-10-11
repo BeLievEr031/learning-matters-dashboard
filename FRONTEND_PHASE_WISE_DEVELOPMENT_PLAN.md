@@ -158,7 +158,7 @@ Phase 10: Teacher Subject & Grade Assignments Matrix (Scheduling) ✅
   ├── Assignment effective date and status management (`active`, `inactive`)
   └── Teacher workload metrics visualization & allocation revocation dialog
 
-Phase 11: Students & Admissions Management
+Phase 11: Students & Admissions Management ✅
   ├── Students directory with grade, board, and admission number filters
   ├── Admission Form (personal info, guardian contacts, DOB, gender)
   ├── Student profile details drawer

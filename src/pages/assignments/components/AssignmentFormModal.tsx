@@ -144,7 +144,7 @@ export function AssignmentFormModal({
       if (isEditing && assignmentToEdit) {
         await assignmentsApi.update(assignmentToEdit.id, {
           status: values.status,
-          effectiveDate: values.effectiveDate || null,
+          effectiveDate: values.effectiveDate || undefined,
         });
         toast.success('Teaching assignment updated successfully');
       } else {

@@ -176,7 +176,7 @@ Phase 13: User Administration & RBAC Management ✅
   ├── User status toggle (`active`, `inactive`)
   └── Password reset / credential invitation trigger
 
-Phase 14: Audit Logs & Compliance Trail Viewer
+Phase 14: Audit Logs & Compliance Trail Viewer ✅
   ├── Live audit logs table with actor, role, school, action, and resource filters
   ├── Visual JSON Diff viewer for state changes
   └── Audit log export / inspection view

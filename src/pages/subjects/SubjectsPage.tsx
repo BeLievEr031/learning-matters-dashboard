@@ -35,6 +35,7 @@ import { useAuthStore } from '../../store/auth.store.ts';
 import { SubjectFormModal } from './components/SubjectFormModal.tsx';
 import { RemoveGradeSubjectDialog } from './components/RemoveGradeSubjectDialog.tsx';
 import { DeleteSubjectDialog } from './components/DeleteSubjectDialog.tsx';
+import { SubjectChaptersDrawer } from './components/SubjectChaptersDrawer.tsx';
 import { cn } from '../../lib/utils.ts';
 import type { SubjectStatus } from '../../schemas/subjects.schema.ts';
 
@@ -75,6 +76,7 @@ export function SubjectsPage() {
   const [subjectToEdit, setSubjectToEdit] = useState<Subject | null>(null);
   const [subjectToRemove, setSubjectToRemove] = useState<GradeSubjectItem | null>(null);
   const [subjectToDelete, setSubjectToDelete] = useState<Subject | null>(null);
+  const [subjectForChapters, setSubjectForChapters] = useState<Subject | null>(null);
 
   // 1. Fetch school boards
   const { data: boardsData, isLoading: isLoadingBoards } = useQuery({
@@ -192,6 +194,10 @@ export function SubjectsPage() {
 
   const handleDelete = (subject: Subject) => {
     setSubjectToDelete(subject);
+  };
+
+  const handleOpenChapters = (subject: Subject) => {
+    setSubjectForChapters(subject);
   };
 
   const handleNextPage = () => {
@@ -588,14 +594,26 @@ export function SubjectsPage() {
 
                     {/* Footer Actions */}
                     <div className="pt-3 border-t border-border/50 flex items-center justify-between text-xs">
-                      <button
-                        type="button"
-                        onClick={() => navigate(`/assignments?subjectId=${subject.id}`)}
-                        className="inline-flex items-center gap-1.5 text-primary hover:underline font-semibold"
-                      >
-                        <UserCheck className="w-3.5 h-3.5" />
-                        <span>Teacher Allocation</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleOpenChapters(subject)}
+                          className="text-xs h-7.5 px-2.5 gap-1.5 font-semibold text-primary hover:text-primary hover:bg-primary/10 border-primary/20"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-primary" />
+                          <span>Chapters</span>
+                        </Button>
+                        <button
+                          type="button"
+                          onClick={() => navigate(`/assignments?subjectId=${subject.id}`)}
+                          className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground font-medium pl-1 text-[11px]"
+                          title="Assign Teachers"
+                        >
+                          <UserCheck className="w-3 h-3" />
+                          <span>Faculty</span>
+                        </button>
+                      </div>
 
                       {canManage && (
                         <div className="flex items-center gap-1">
@@ -665,6 +683,14 @@ export function SubjectsPage() {
                         <td className="py-3.5 px-4">{getStatusBadge(subject.status)}</td>
                         <td className="py-3.5 px-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleOpenChapters(subject)}
+                              className="text-[11px] h-7 gap-1 text-primary border-primary/20 hover:bg-primary/10 font-semibold"
+                            >
+                              <BookOpen className="w-3 h-3" /> Chapters
+                            </Button>
                             <Button
                               variant="outline"
                               size="sm"
@@ -777,6 +803,12 @@ export function SubjectsPage() {
           queryClient.invalidateQueries({ queryKey: ['subjects', activeGradeId] });
           queryClient.invalidateQueries({ queryKey: ['dashboard'] });
         }}
+      />
+
+      <SubjectChaptersDrawer
+        open={Boolean(subjectForChapters)}
+        onOpenChange={(open) => !open && setSubjectForChapters(null)}
+        subject={subjectForChapters}
       />
     </div>
   );

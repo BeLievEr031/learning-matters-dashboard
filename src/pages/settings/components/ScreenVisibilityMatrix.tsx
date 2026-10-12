@@ -13,8 +13,8 @@ import { Button } from '../../../components/ui/button.tsx';
 import {
   CATEGORIES,
   SCREENS_REGISTRY,
-  type ScreenDefinition,
 } from '../../../config/screens.config.ts';
+import type { ScreenDefinition } from '../../../types/screens.types.ts';
 import { useScreenPermissionsStore } from '../../../store/screen-permissions.store.ts';
 import type { UserRole } from '../../../types/auth.types.ts';
 import { cn } from '../../../lib/utils.ts';
@@ -58,7 +58,7 @@ export function ScreenVisibilityMatrix({
         const q = searchQuery.trim().toLowerCase();
         const matchTitle = screen.title.toLowerCase().includes(q);
         const matchPath = screen.path.toLowerCase().includes(q);
-        const matchDesc = screen.description.toLowerCase().includes(q);
+        const matchDesc = Boolean(screen.description?.toLowerCase().includes(q));
         if (!matchTitle && !matchPath && !matchDesc) return false;
       }
       return true;
@@ -111,7 +111,6 @@ export function ScreenVisibilityMatrix({
                 <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
                   {category.label}
                 </h3>
-                <p className="text-[11px] text-muted-foreground">{category.description}</p>
               </div>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">
                 {screens.length} {screens.length === 1 ? 'screen' : 'screens'}

@@ -170,7 +170,7 @@ Phase 12: Principal Appointment & Management ✅
   ├── Appoint / Replace Principal modal (`POST /schools/:id/principal`)
   └── Principal status and contact details manager
 
-Phase 13: User Administration & RBAC Management
+Phase 13: User Administration & RBAC Management ✅
   ├── System-wide / School-scoped Users list with role filters
   ├── Create User modal (role assignment: super_admin, admin, principal, teacher, student)
   ├── User status toggle (`active`, `inactive`)

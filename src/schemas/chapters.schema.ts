@@ -4,7 +4,7 @@ export const CHAPTER_STATUSES = ['active', 'inactive', 'archived'] as const;
 export type ChapterStatus = (typeof CHAPTER_STATUSES)[number];
 
 export const chapterFormSchema = z.object({
-  chapterNumber: z.coerce
+  chapterNumber: z
     .number()
     .int('Chapter number must be an integer')
     .positive('Chapter number must be a positive number (1, 2, 3...)'),
@@ -17,9 +17,8 @@ export const chapterFormSchema = z.object({
     .string()
     .trim()
     .max(2000, 'Description cannot exceed 2000 characters')
-    .optional()
-    .or(z.literal('')),
-  status: z.enum(CHAPTER_STATUSES).default('active'),
+    .optional(),
+  status: z.enum(CHAPTER_STATUSES),
 });
 
 export type ChapterFormValues = z.infer<typeof chapterFormSchema>;

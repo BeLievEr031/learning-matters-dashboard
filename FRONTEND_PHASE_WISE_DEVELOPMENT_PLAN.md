@@ -140,9 +140,11 @@ Phase 7: Grades & Sections Management ✅
   ├── Class Teacher assignment / unassignment modal (`PUT /grades/:id/class-teacher`)
   └── Grade capacity and student occupancy indicators
 
-Phase 8: Subjects & Grade-Subject Curriculum ✅
+Phase 8: Subjects, Chapters & Grade-Subject Curriculum ✅
   ├── Master Subjects catalogue with search & code filter
   ├── Create & Edit subject drawer
+  ├── Structured Subject Chapters & Syllabus units (`/subjects/:subjectId/chapters`)
+  ├── Chapter reordering, status management, and indexing (`/subjects/:subjectId/chapters/reorder`)
   ├── Grade-Subject mapping manager (`/grades/:gradeId/subjects`)
   └── Association status toggle (`active`, `inactive`)
 

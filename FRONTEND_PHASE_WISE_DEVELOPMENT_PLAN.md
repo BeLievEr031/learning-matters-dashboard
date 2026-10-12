@@ -165,7 +165,7 @@ Phase 11: Students & Admissions Management ✅
   ├── Student Grade Transfer modal (`PUT /students/:id/transfer` with audit reason)
   └── Student status lifecycle (`active`, `inactive`, `transferred`, `graduated`, `suspended`)
 
-Phase 12: Principal Appointment & Management
+Phase 12: Principal Appointment & Management ✅
   ├── Principal profile card per school
   ├── Appoint / Replace Principal modal (`POST /schools/:id/principal`)
   └── Principal status and contact details manager

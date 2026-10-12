@@ -4,6 +4,7 @@ import { Sidebar } from './Sidebar.tsx';
 import { Header } from './Header.tsx';
 import { CommandMenu } from './CommandMenu.tsx';
 import { LogoutDialog } from '../auth/LogoutDialog.tsx';
+import { ImpersonationActiveBanner } from '../../pages/settings/components/ImpersonationSandboxBanner.tsx';
 
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,6 +24,9 @@ export function AppShell() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+        {/* Global Live Sandbox Mode Indicator */}
+        <ImpersonationActiveBanner />
+
         <Header
           onOpenMobileSidebar={() => setMobileOpen(true)}
           onOpenCommandMenu={() => setCommandMenuOpen(true)}

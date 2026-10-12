@@ -6,11 +6,13 @@ import { RoleGuard } from './components/guards/RoleGuard.tsx';
 import { AppShell } from './components/layout/AppShell.tsx';
 import { LoginPage } from './pages/auth/LoginPage.tsx';
 import { NotFoundPage } from './pages/errors/NotFoundPage.tsx';
+import { RouteErrorPage } from './pages/errors/RouteErrorPage.tsx';
 
 export const router = createBrowserRouter([
   // Public Auth Routes
   {
     path: '/login',
+    errorElement: <RouteErrorPage />,
     element: (
       <GuestGuard>
         <LoginPage />
@@ -21,9 +23,11 @@ export const router = createBrowserRouter([
   // Protected App Routes wrapped in AuthGuard and AppShell
   {
     element: <AuthGuard />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         element: <AppShell />,
+        errorElement: <RouteErrorPage />,
         children: [
           {
             path: '/',
@@ -33,6 +37,7 @@ export const router = createBrowserRouter([
             const Component = screen.component;
             return {
               path: screen.path,
+              errorElement: <RouteErrorPage />,
               element: (
                 <RoleGuard allowedRoles={screen.allowedRoles}>
                   <Component />

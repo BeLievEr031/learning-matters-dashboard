@@ -14,6 +14,7 @@ import {
   History,
   Sliders,
   HelpCircle,
+  FileText,
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ComponentType<LucideProps>> = {
@@ -30,6 +31,7 @@ const ICON_MAP: Record<string, React.ComponentType<LucideProps>> = {
   UserCheck,
   History,
   Sliders,
+  FileText,
 };
 
 interface DynamicIconProps extends LucideProps {

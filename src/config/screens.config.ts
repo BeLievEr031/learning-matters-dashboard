@@ -16,6 +16,13 @@ import { AuditLogsPage } from '../pages/audit-logs/AuditLogsPage.tsx';
 import { ScreenSettingsPage } from '../pages/settings/ScreenSettingsPage.tsx';
 import { ProfilePage } from '../pages/profile/ProfilePage.tsx';
 
+// Teacher Workspace components
+import { TeacherClassesPage } from '../pages/teacher/TeacherClassesPage.tsx';
+import { GradeSubjectsPage } from '../pages/teacher/GradeSubjectsPage.tsx';
+import { TeacherSubjectsPage } from '../pages/teacher/TeacherSubjectsPage.tsx';
+import { SubjectChaptersPage } from '../pages/teacher/SubjectChaptersPage.tsx';
+import { ChapterResourcesPage } from '../pages/teacher/ChapterResourcesPage.tsx';
+
 export const CATEGORIES: Record<ScreenCategory, CategoryMetadata> = {
   core: { id: 'core', label: 'Overview', order: 1 },
   academic: { id: 'academic', label: 'Academic Structure', order: 2 },
@@ -61,7 +68,7 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     order: 20,
   },
 
-  // Academic Structure
+  // Academic Structure (Admin / Leadership)
   {
     id: 'boards',
     path: '/boards',
@@ -69,7 +76,7 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     description: 'Curriculum boards (CBSE, ICSE, State Boards)',
     iconName: 'BookOpen',
     category: 'academic',
-    allowedRoles: ['super_admin', 'admin', 'principal', 'class_teacher', 'teacher'],
+    allowedRoles: ['super_admin', 'admin', 'principal'],
     component: BoardsPage,
     showInSidebar: true,
     order: 10,
@@ -81,7 +88,7 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     description: 'Manage grade levels, sections, and class teachers',
     iconName: 'Layers',
     category: 'academic',
-    allowedRoles: ['super_admin', 'admin', 'principal', 'class_teacher', 'teacher'],
+    allowedRoles: ['super_admin', 'admin', 'principal'],
     component: GradesPage,
     showInSidebar: true,
     order: 20,
@@ -93,13 +100,75 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     description: 'Master courses catalogue and grade curriculum',
     iconName: 'GraduationCap',
     category: 'academic',
-    allowedRoles: ['super_admin', 'admin', 'principal', 'class_teacher', 'teacher'],
+    allowedRoles: ['super_admin', 'admin', 'principal'],
     component: SubjectsPage,
     showInSidebar: true,
     order: 30,
   },
 
-  // People (Faculty & Students)
+  // Teacher Workspace (Faculty & Class Leads)
+  {
+    id: 'teacher-classes',
+    path: '/teacher/classes',
+    title: 'My Classes',
+    description: 'Assigned grades, sections, and class lead responsibilities',
+    iconName: 'Layers',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: TeacherClassesPage,
+    showInSidebar: true,
+    order: 5,
+  },
+  {
+    id: 'teacher-grade-subjects',
+    path: '/teacher/classes/:gradeId/subjects',
+    title: 'Grade Curriculum',
+    description: 'Subjects taught within selected class grade',
+    iconName: 'BookOpen',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: GradeSubjectsPage,
+    showInSidebar: false,
+    order: 6,
+  },
+  {
+    id: 'teacher-subjects',
+    path: '/teacher/subjects',
+    title: 'My Subjects',
+    description: 'Master courses catalog and syllabus overview',
+    iconName: 'GraduationCap',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: TeacherSubjectsPage,
+    showInSidebar: true,
+    order: 7,
+  },
+  {
+    id: 'teacher-subject-chapters',
+    path: '/teacher/subjects/:subjectId/chapters',
+    title: 'Subject Chapters',
+    description: 'Syllabus units and lesson breakdown',
+    iconName: 'BookOpen',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: SubjectChaptersPage,
+    showInSidebar: false,
+    order: 8,
+  },
+  {
+    id: 'teacher-chapter-resources',
+    path: '/teacher/chapters/:chapterId/resources',
+    title: 'Chapter Resources',
+    description: 'Learning materials and study notes studio',
+    iconName: 'FileText',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: ChapterResourcesPage,
+    showInSidebar: false,
+    order: 9,
+  },
+
+  // People (Faculty & Students - Admin / Leadership)
   {
     id: 'teachers',
     path: '/teachers',
@@ -107,7 +176,7 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     description: 'Teacher staff directory and employee records',
     iconName: 'Briefcase',
     category: 'people',
-    allowedRoles: ['super_admin', 'admin', 'principal', 'class_teacher', 'teacher'],
+    allowedRoles: ['super_admin', 'admin', 'principal'],
     component: TeachersPage,
     showInSidebar: true,
     order: 10,
@@ -131,7 +200,7 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     description: 'Teacher to grade and subject scheduling matrix',
     iconName: 'CalendarCheck',
     category: 'people',
-    allowedRoles: ['super_admin', 'admin', 'principal', 'class_teacher', 'teacher'],
+    allowedRoles: ['super_admin', 'admin', 'principal'],
     component: AssignmentsPage,
     showInSidebar: true,
     order: 30,

@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  CalendarCheck,
   BookOpen,
   Users,
   Layers,
@@ -97,17 +96,17 @@ export function TeacherDashboard() {
         <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
-            onClick={() => navigate('/assignments')}
+            onClick={() => navigate('/teacher/classes')}
             className="p-4 rounded-xl border border-border/60 bg-card hover:bg-muted/50 text-left transition-all hover:border-primary/50 group flex items-start justify-between"
           >
             <div className="space-y-1">
               <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-2">
-                <CalendarCheck className="w-4 h-4" />
+                <Layers className="w-4 h-4" />
               </div>
-              <p className="text-sm font-bold text-foreground">My Teaching Schedule</p>
-              <p className="text-xs text-muted-foreground">View subjects and grades assigned to you</p>
+              <p className="text-sm font-bold text-foreground">My Assigned Classes</p>
+              <p className="text-xs text-muted-foreground">View grades, sections, and classroom leads</p>
             </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-transform" />
           </button>
 
           {isClassTeacher && (
@@ -123,23 +122,23 @@ export function TeacherDashboard() {
                 <p className="text-sm font-bold text-foreground">My Section Students</p>
                 <p className="text-xs text-muted-foreground">Manage class roster and transfer requests</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-transform" />
             </button>
           )}
 
           <button
             type="button"
-            onClick={() => navigate('/subjects')}
+            onClick={() => navigate('/teacher/subjects')}
             className="p-4 rounded-xl border border-border/60 bg-card hover:bg-muted/50 text-left transition-all hover:border-primary/50 group flex items-start justify-between"
           >
             <div className="space-y-1">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-2">
                 <GraduationCap className="w-4 h-4" />
               </div>
-              <p className="text-sm font-bold text-foreground">Curriculum Syllabus</p>
-              <p className="text-xs text-muted-foreground">Course details and grade associations</p>
+              <p className="text-sm font-bold text-foreground">My Subjects & Syllabus</p>
+              <p className="text-xs text-muted-foreground">Course details, chapters, and study materials</p>
             </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-transform" />
           </button>
         </CardContent>
       </Card>

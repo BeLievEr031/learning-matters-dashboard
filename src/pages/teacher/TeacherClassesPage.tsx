@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Layers,
   ArrowRight,
   Search,
   Sparkles,
@@ -244,22 +243,19 @@ export function TeacherClassesPage() {
 
               {/* Card Footer Actions */}
               <div className="p-4 pt-2 border-t border-border/40 flex items-center justify-between gap-2 bg-muted/10">
-                {grade.isClassTeacher ? (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate('/students')}
-                    className="text-xs gap-1.5 h-8 text-amber-600 dark:text-amber-400 hover:text-amber-700"
-                  >
-                    <Users className="w-3.5 h-3.5" />
-                    Roster
-                  </Button>
-                ) : (
-                  <div className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-                    <Layers className="w-3 h-3" />
-                    Section Taught
-                  </div>
-                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate(`/teacher/classes/${grade.id}/students`)}
+                  className={`text-xs gap-1.5 h-8 ${
+                    grade.isClassTeacher
+                      ? 'text-amber-600 dark:text-amber-400 hover:text-amber-700 border-amber-500/30'
+                      : 'text-foreground hover:text-primary'
+                  }`}
+                >
+                  <Users className="w-3.5 h-3.5" />
+                  Students
+                </Button>
 
                 <Button
                   size="sm"

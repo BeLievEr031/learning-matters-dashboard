@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { teachersApi } from '../api/teachers.api.ts';
+import type { PaginatedResponse } from '../types/api.types.ts';
+import type { Student, ListStudentsParams } from '../api/students.api.ts';
 import type {
   AssignedGrade,
   AssignedSubject,
@@ -56,5 +58,31 @@ export function useTeacherSubjectChapters(subjectId?: string) {
     },
     enabled: Boolean(subjectId),
     staleTime: 1000 * 60 * 5,
+  });
+}
+
+/**
+ * Hook to retrieve students of an assigned grade
+ */
+export function useTeacherGradeStudents(gradeId?: string, params?: ListStudentsParams) {
+  return useQuery<PaginatedResponse<Student>>({
+    queryKey: ['teacher', 'grade-students', gradeId, params],
+    queryFn: () => {
+      if (!gradeId) throw new Error('gradeId is required');
+      return teachersApi.getMyAssignedGradeStudents(gradeId, params);
+    },
+    enabled: Boolean(gradeId),
+    staleTime: 1000 * 60 * 2, // 2 minutes
+  });
+}
+
+/**
+ * Hook to retrieve all students across all assigned grades
+ */
+export function useTeacherAllStudents(params?: ListStudentsParams) {
+  return useQuery<PaginatedResponse<Student>>({
+    queryKey: ['teacher', 'all-students', params],
+    queryFn: () => teachersApi.getMyAllAssignedStudents(params),
+    staleTime: 1000 * 60 * 2,
   });
 }

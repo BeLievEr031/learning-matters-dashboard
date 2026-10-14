@@ -19,6 +19,7 @@ import { ProfilePage } from '../pages/profile/ProfilePage.tsx';
 // Teacher Workspace components
 import { TeacherClassesPage } from '../pages/teacher/TeacherClassesPage.tsx';
 import { GradeSubjectsPage } from '../pages/teacher/GradeSubjectsPage.tsx';
+import { GradeStudentsPage } from '../pages/teacher/GradeStudentsPage.tsx';
 import { TeacherSubjectsPage } from '../pages/teacher/TeacherSubjectsPage.tsx';
 import { SubjectChaptersPage } from '../pages/teacher/SubjectChaptersPage.tsx';
 import { ChapterResourcesPage } from '../pages/teacher/ChapterResourcesPage.tsx';
@@ -130,6 +131,18 @@ export const SCREENS_REGISTRY: ScreenDefinition[] = [
     component: GradeSubjectsPage,
     showInSidebar: false,
     order: 6,
+  },
+  {
+    id: 'teacher-grade-students',
+    path: '/teacher/classes/:gradeId/students',
+    title: 'Class Students Roster',
+    description: 'Enrolled students roster and profile directory for selected grade',
+    iconName: 'Users',
+    category: 'academic',
+    allowedRoles: ['class_teacher', 'teacher'],
+    component: GradeStudentsPage,
+    showInSidebar: false,
+    order: 6.5,
   },
   {
     id: 'teacher-subjects',

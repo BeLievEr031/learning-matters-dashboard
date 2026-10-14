@@ -7,6 +7,7 @@ import type {
   GradeSubjectsResponse,
   SubjectChaptersResponse,
 } from '../types/teacher-workspace.types.ts';
+import type { Student, ListStudentsParams } from './students.api.ts';
 
 export type { TeacherStatus };
 
@@ -132,5 +133,32 @@ export const teachersApi = {
       `/teachers/${teacherId}/grades`,
     );
     return response.data.data;
+  },
+
+  /**
+   * Teacher Workspace: Retrieve students of an assigned grade
+   */
+  getMyAssignedGradeStudents: async (
+    gradeId: string,
+    params?: ListStudentsParams,
+  ): Promise<PaginatedResponse<Student>> => {
+    const response = await apiClient.get<PaginatedResponse<Student>>(
+      `/teachers/me/grades/${gradeId}/students`,
+      { params },
+    );
+    return response.data;
+  },
+
+  /**
+   * Teacher Workspace: Retrieve all students across all assigned grades
+   */
+  getMyAllAssignedStudents: async (
+    params?: ListStudentsParams,
+  ): Promise<PaginatedResponse<Student>> => {
+    const response = await apiClient.get<PaginatedResponse<Student>>(
+      '/teachers/me/students',
+      { params },
+    );
+    return response.data;
   },
 };

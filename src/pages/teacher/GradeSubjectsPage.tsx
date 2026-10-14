@@ -12,6 +12,7 @@ import {
   FolderOpen,
   X,
   Layers,
+  Users,
 } from 'lucide-react';
 import { Button } from '../../components/ui/button.tsx';
 import { Input } from '../../components/ui/input.tsx';
@@ -49,16 +50,28 @@ export function GradeSubjectsPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Navigation Breadcrumb & Back button */}
-      <div className="flex items-center justify-between gap-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/teacher/classes')}
-          className="gap-1.5 text-xs h-9"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Back to My Classes
-        </Button>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/teacher/classes')}
+            className="gap-1.5 text-xs h-9"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Back to My Classes
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate(`/teacher/classes/${gradeId}/students`)}
+            className="gap-1.5 text-xs h-9 text-foreground hover:text-primary"
+          >
+            <Users className="w-4 h-4 text-primary" />
+            Students Roster
+          </Button>
+        </div>
 
         <Button
           variant="ghost"

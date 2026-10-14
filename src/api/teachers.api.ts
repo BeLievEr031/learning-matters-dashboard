@@ -1,6 +1,12 @@
 import { apiClient } from './client.ts';
 import type { PaginatedResponse } from '../types/api.types.ts';
 import type { TeacherFormValues, TeacherStatus } from '../schemas/teachers.schema.ts';
+import type {
+  AssignedGrade,
+  AssignedSubject,
+  GradeSubjectsResponse,
+  SubjectChaptersResponse,
+} from '../types/teacher-workspace.types.ts';
 
 export type { TeacherStatus };
 
@@ -80,5 +86,51 @@ export const teachersApi = {
 
   delete: async (teacherId: string): Promise<void> => {
     await apiClient.delete(`/teachers/${teacherId}`);
+  },
+
+  /**
+   * Teacher Workspace: Retrieve grades assigned to logged-in teacher
+   */
+  getMyAssignedGrades: async (): Promise<AssignedGrade[]> => {
+    const response = await apiClient.get<{ data: AssignedGrade[] }>('/teachers/me/grades');
+    return response.data.data;
+  },
+
+  /**
+   * Teacher Workspace: Retrieve all distinct subjects assigned across all grades
+   */
+  getMyAllAssignedSubjects: async (): Promise<AssignedSubject[]> => {
+    const response = await apiClient.get<{ data: AssignedSubject[] }>('/teachers/me/subjects');
+    return response.data.data;
+  },
+
+  /**
+   * Teacher Workspace: Retrieve assigned subjects in a specific grade
+   */
+  getMyAssignedGradeSubjects: async (gradeId: string): Promise<GradeSubjectsResponse> => {
+    const response = await apiClient.get<{ data: GradeSubjectsResponse }>(
+      `/teachers/me/grades/${gradeId}/subjects`,
+    );
+    return response.data.data;
+  },
+
+  /**
+   * Teacher Workspace: Retrieve active syllabus chapters for an assigned subject
+   */
+  getMyAssignedSubjectChapters: async (subjectId: string): Promise<SubjectChaptersResponse> => {
+    const response = await apiClient.get<{ data: SubjectChaptersResponse }>(
+      `/teachers/me/subjects/${subjectId}/chapters`,
+    );
+    return response.data.data;
+  },
+
+  /**
+   * Retrieve assigned grades for a specific teacher ID
+   */
+  getTeacherAssignedGrades: async (teacherId: string): Promise<AssignedGrade[]> => {
+    const response = await apiClient.get<{ data: AssignedGrade[] }>(
+      `/teachers/${teacherId}/grades`,
+    );
+    return response.data.data;
   },
 };
